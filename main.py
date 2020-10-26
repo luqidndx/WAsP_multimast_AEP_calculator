@@ -26,9 +26,9 @@ x_list = ' X [m] '
 y_list = ' Y [m] '
 C = [1, 1]  # 两座测风塔置信系数，默认置信系数均为1
 
-mast1_result = pd.read_csv(os.path.join(filepath, filenames[0]), index_col=tur_id_list)
-mast2_result = pd.read_csv(os.path.join(filepath, filenames[1]), index_col=tur_id_list)
-mast_info = pd.read_csv(os.path.join(filepath, filenames[2]), index_col=mast_id_list)
+mast1_result = pd.read_csv(os.path.join(filepath, filenames[0]), index_col=tur_id_list, encoding='gbk')
+mast2_result = pd.read_csv(os.path.join(filepath, filenames[1]), index_col=tur_id_list, encoding='gbk')
+mast_info = pd.read_csv(os.path.join(filepath, filenames[2]), index_col=mast_id_list, encoding='gbk')
 
 mast1_result.loc[:, 'distance'] = (((mast1_result[x_list] - mast_info.iloc[0][0]) ** 2 + (
         mast1_result[y_list] - mast_info.iloc[0][1]) ** 2) ** 0.5).round(2)
@@ -52,7 +52,7 @@ multi_mast_result['Net_multi'] = multi_mast_result['Net_Mast1'] * multi_mast_res
 multi_mast_result['Wk_multi'] = (1 - multi_mast_result['Net_multi'] / multi_mast_result['Grs_multi']) * 100
 
 multi_mast_result[['U_multi', 'U(w)_multi', 'Grs_multi', 'Net_multi', 'Wk_multi']].to_csv(
-    os.path.join(sav_path, '双塔综合结论[距离权重{}]_{}.csv'.format(factor, time)))
+    os.path.join(sav_path, '双塔综合结论[距离权重{}]_{}.csv'.format(factor, time)), encoding='gbk')
 
 end = timeit.default_timer()
 print('Running machine time: %s Seconds' % (end - start))
